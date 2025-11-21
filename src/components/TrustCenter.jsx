@@ -1,4 +1,8 @@
 import { useState } from 'react'
+import { motion } from 'framer-motion'
+import NavMotion from './NavMotion'
+import Hero3D from './Hero3D'
+import { FlowCards, GalleryRibbon, CTAFloat } from './FlowSections'
 
 function SoftBadge({ tone = 'green', label = 'Verde' }) {
   const map = {
@@ -13,8 +17,8 @@ function Section({ id, title, subtitle, children }) {
   return (
     <section id={id} className="py-16 scroll-mt-24">
       <div className="max-w-6xl mx-auto px-4">
-        <h2 className="soft-section-title">{title}</h2>
-        {subtitle && <p className="soft-subtitle">{subtitle}</p>}
+        <motion.h2 initial={{opacity:0,y:10}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{duration:0.5}} className="soft-section-title">{title}</motion.h2>
+        {subtitle && <motion.p initial={{opacity:0,y:10}} whileInView={{opacity:1,y:0}} viewport={{once:true}} transition={{duration:0.55, delay:0.05}} className="soft-subtitle">{subtitle}</motion.p>}
         <div className="mt-8">{children}</div>
       </div>
     </section>
@@ -75,21 +79,21 @@ function DocumentVault() {
   return (
     <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-4">
       {docs.map((d, i) => (
-        <div key={i} className="card p-4">
+        <motion.div key={i} initial={{opacity:0, y:10}} whileInView={{opacity:1, y:0}} viewport={{once:true}} transition={{duration:0.45}} className="card p-4">
           <div className="h-28 rounded-lg bg-gradient-to-br from-emerald-100 to-emerald-50 flex items-center justify-center text-slate-500 text-sm">PDF Preview</div>
           <div className="mt-3 text-slate-900 font-medium">{d.title}</div>
           <div className="text-slate-500 text-xs mt-1">Actualizat la: {d.date}</div>
           <button className="mt-3 w-full btn-primary">Vezi PDF</button>
-        </div>
+        </motion.div>
       ))}
-      <div className="md:col-span-3 lg:col-span-4 card-muted p-4">
+      <motion.div initial={{opacity:0, y:10}} whileInView={{opacity:1, y:0}} viewport={{once:true}} transition={{duration:0.45}} className="md:col-span-3 lg:col-span-4 card-muted p-4">
         <div className="text-slate-900 font-semibold mb-2">Cum citim actele?</div>
         <ul className="list-disc list-inside text-slate-700 text-sm space-y-1">
           <li>Recepția confirmă că etapa a fost verificată oficial.</li>
           <li>Certificatul energetic arată eficiența clădirii în utilizare.</li>
           <li>Antecontractul descrie clar plățile, termenele și garanțiile.</li>
         </ul>
-      </div>
+      </motion.div>
     </div>
   )
 }
@@ -111,11 +115,11 @@ function Timeline() {
     <div className="overflow-x-auto">
       <div className="min-w-[720px] grid grid-cols-7 gap-6">
         {items.map((m, i) => (
-          <div key={i} className="card p-4">
+          <motion.div key={i} initial={{opacity:0, y:8}} whileInView={{opacity:1, y:0}} viewport={{once:true}} transition={{duration:0.4}} className="card p-4">
             <div className="mt-1"><span className={tone(m.status)}>{m.status === 'done' ? 'Finalizat' : m.status === 'progress' ? 'În progres' : 'Urmează'}</span></div>
             <div className="mt-3 text-slate-900 font-medium">{m.label}</div>
             <div className="text-slate-600 text-sm">{m.desc}</div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>
@@ -221,10 +225,10 @@ function Testimonials() {
   return (
     <div className="grid md:grid-cols-3 gap-4">
       {items.map((t, i) => (
-        <div key={i} className="card p-4">
+        <motion.div key={i} initial={{opacity:0, y:8}} whileInView={{opacity:1, y:0}} viewport={{once:true}} transition={{duration:0.4}} className="card p-4">
           <div className="text-slate-700">“{t.text}”</div>
           <div className="mt-3 text-slate-500 text-sm">{t.name} • {t.year}</div>
-        </div>
+        </motion.div>
       ))}
     </div>
   )
@@ -248,40 +252,11 @@ export default function TrustCenter() {
   return (
     <div className="min-h-screen relative bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-50 via-white to-white">
       <Ambient />
-
-      <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/70 bg-white/80 border-b border-slate-200">
-        <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-          <a href="#" className="text-slate-900 font-bold tracking-tight">Gardenia • TrustCenter</a>
-          <nav className="hidden md:flex items-center gap-6 text-slate-600">
-            <a href="#pasaport" className="hover:text-slate-800">Pașaport</a>
-            <a href="#documente" className="hover:text-slate-800">Documente</a>
-            <a href="#timeline" className="hover:text-slate-800">Timeline</a>
-            <a href="#costuri" className="hover:text-slate-800">Costuri</a>
-            <a href="#probleme" className="hover:text-slate-800">Probleme</a>
-            <a href="#testimoniale" className="hover:text-slate-800">Testimoniale</a>
-            <a href="/portal" className="hover:text-slate-800">Portal proprietar</a>
-          </nav>
-        </div>
-      </header>
-
+      <NavMotion />
       <main>
-        <section className="pt-12 pb-8">
-          <div className="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <h1 className="text-4xl md:text-5xl font-bold text-slate-900 tracking-tight">Transparență liniștitoare, fără stridențe</h1>
-              <p className="mt-4 text-slate-600">Tot ce trebuie să știi înainte să semnezi: statutul proiectului, actele, costurile reale, problemele și rezolvările – la vedere. Ton calm, informații verificabile.</p>
-              <div className="mt-6 flex flex-wrap gap-3">
-                <a href="#costuri" className="btn-primary">Vezi costurile</a>
-                <button onClick={()=>setOpen(true)} className="btn-ghost">Programează vizită</button>
-              </div>
-            </div>
-            <div className="relative h-64 md:h-80">
-              <div className="absolute inset-0 rounded-2xl bg-[url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6?q=80&w=1400&auto=format&fit=crop')] bg-cover bg-center border border-slate-200 shadow-sm" />
-              <div className="absolute -top-6 -left-6 w-28 h-28 bg-emerald-100/60 rounded-full blur-2xl animate-float-slow" />
-              <div className="absolute -bottom-8 -right-6 w-36 h-36 bg-emerald-200/50 rounded-full blur-2xl animate-float-slower" />
-            </div>
-          </div>
-        </section>
+        <Hero3D />
+        <FlowCards />
+        <GalleryRibbon />
 
         <Section id="pasaport" title="Pașaportul Proiectului" subtitle="Ce cumperi, de la cine și cât de solid e – în 10 secunde.">
           <ProjectPassport />
@@ -316,6 +291,8 @@ export default function TrustCenter() {
             <a href="#" className="btn-primary">Lasă datele</a>
           </div>
         </div>
+
+        <CTAFloat />
       </main>
 
       <button onClick={()=>setOpen(true)} className="fixed bottom-6 right-6 z-40 btn-primary rounded-full">Programează vizită</button>
