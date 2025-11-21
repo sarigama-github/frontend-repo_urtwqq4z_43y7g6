@@ -15,32 +15,56 @@
   html {
     font-family: var(--font-sans);
     font-feature-settings: "rlig" 1, "calt" 1;
+    color-scheme: light;
+    background-color: #f7f7f7;
   }
 
   body {
-    @apply antialiased;
+    @apply antialiased text-slate-800;
   }
 }
 
-/* Custom utility classes for shadcn/ui patterns */
+/* Motion and subtle ambiance */
 @layer utilities {
-  .animate-in {
-    animation-name: animateIn;
-    animation-duration: 350ms;
-    --tw-enter-opacity: initial;
-    --tw-enter-scale: initial;
-    --tw-enter-rotate: initial;
-    --tw-enter-translate-x: initial;
-    --tw-enter-translate-y: initial;
+  @keyframes floatY {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(12px); }
   }
-
-  .animate-out {
-    animation-name: animateOut;
-    animation-duration: 350ms;
-    --tw-exit-opacity: initial;
-    --tw-exit-scale: initial;
-    --tw-exit-rotate: initial;
-    --tw-exit-translate-x: initial;
-    --tw-exit-translate-y: initial;
+  @keyframes floatX {
+    0%, 100% { transform: translateX(0px); }
+    50% { transform: translateX(10px); }
+  }
+  .animate-float-slow {
+    animation: floatY 14s ease-in-out infinite;
+  }
+  .animate-float-slower {
+    animation: floatX 18s ease-in-out infinite;
+  }
+  .card {
+    @apply bg-white border border-slate-200 rounded-xl shadow-sm;
+  }
+  .card-muted {
+    @apply bg-white/80 backdrop-blur border border-slate-200 rounded-xl shadow-sm;
+  }
+  .soft-section-title {
+    @apply text-2xl md:text-3xl font-semibold text-slate-900 tracking-tight;
+  }
+  .soft-subtitle {
+    @apply text-slate-600 mt-2;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-5 py-3 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold transition-colors;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center px-5 py-3 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 font-medium transition-colors;
+  }
+  .badge-green {
+    @apply px-3 py-1 rounded-full text-sm font-medium bg-emerald-50 text-emerald-700 border border-emerald-200;
+  }
+  .badge-yellow {
+    @apply px-3 py-1 rounded-full text-sm font-medium bg-amber-50 text-amber-700 border border-amber-200;
+  }
+  .badge-red {
+    @apply px-3 py-1 rounded-full text-sm font-medium bg-rose-50 text-rose-700 border border-rose-200;
   }
 }
